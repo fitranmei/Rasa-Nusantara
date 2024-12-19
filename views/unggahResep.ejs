@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Unggah Resep</title>
+    <link rel="stylesheet" href="/css/unggah.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <a href="/" class="logo"><img src="/images/logo/logorn.png" alt="Rasa Nusantara"></a>
+    
+        <ul class="navbar">
+            <li><a href="/resep">Resep</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Kategori
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/kategori/Sarapan">Sarapan</a></li>
+                    <li><a class="dropdown-item" href="/kategori/Makan Siang">Makan Siang</a></li>
+                    <li><a class="dropdown-item" href="/kategori/Makan Malam">Makan Malam</a></li>
+                    <li><a class="dropdown-item" href="/kategori/Resep Ayam">Resep Ayam</a></li>
+                    <li><a class="dropdown-item" href="/kategori/Resep Daging">Resep Daging</a></li>
+                    <li><a class="dropdown-item" href="/kategori/Resep Seafood">Resep Seafood</a></li>
+                    <li><a class="dropdown-item" href="/kategori/Resep Sayuran">Resep Sayuran</a></li>
+                    <li><a class="dropdown-item" href="/kategori/Dessert">Dessert</a></li>
+                </ul>
+            </li>
+            <li><a class="nav-active" href="/resep/unggah">Unggah Resep</a></li>
+        </ul>
+    
+        <form action="/resep/searchResep" method="post" class="searchbar" novalidate>
+            <input type="text" name="search" placeholder="Temukan Resep" aria-label="search">
+            <button type="submit"> Cari </button>
+        </form>
+    
+        <div class="profile" tabindex="0">
+            <% if (recentUser) { %>
+                <div class="profile-header">
+                    <img src="/images/user/<%= recentUser.Gambar_User %>" alt="<%= recentUser.name %>">
+                    <span><%= recentUser.name %></span>
+                </div>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/profile/<%= recentUser.name %>">Profile</a></li>
+                    <li><a class="dropdown-item" href="/auth/logout">Logout</a></li>
+                </ul>
+            <% } else { %>
+                <a href="/login"><span>Login</span></a>
+            <% } %>
+        </div>
+    </header>
+
+    <!-- FORM -->
+    <section class="container mt-5 pt-5">
+        <h1 class="text-center mt-5 mb-4">Unggah Resep Lezat Milikmu!</h1>
+
+        <form action="/resep/unggah-resep" method="POST" enctype="multipart/form-data" class="form-unggah p-5 rounded shadow-sm" id="form-unggah">
+            <!-- Nama Resep -->
+            <div class="mb-3">
+                <label for="recipeName" class="form-label">Nama Resep</label>
+                <input type="text" class="form-control form-control-lg" id="recipeName" name="Nama_Resep" required placeholder="Masukkan Nama Resep">
+            </div>
+
+            <!-- Deskripsi Resep -->
+            <div class="mb-3">
+                <label for="recipeDecription" class="form-label">Deskripsi Resep</label>
+                <input type="text" class="form-control form-control-lg" id="recipeDecription" name="Deskripsi" required placeholder="Masukkan Deskripsi Singkat Resep">
+            </div>
+
+            <!-- Kategori Resep -->
+            <div class="mb-3">
+                <label for="category" class="form-label">Kategori</label>
+                <select class="form-select form-select-lg" id="Kategori" name="Kategori" required>
+                    <option value="Sarapan">Sarapan</option>
+                    <option value="Makan Siang">Makan Siang</option>
+                    <option value="Makan Malam">Makan Malam</option>
+                    <option value="Resep Ayam">Resep Ayam</option>
+                    <option value="Resep Daging">Resep Daging</option>
+                    <option value="Resep Seafood">Resep Seafood</option>
+                    <option value="Resep Sayuran">Resep Sayuran</option>
+                    <option value="Dessert">Dessert</option>
+                </select>
+            </div>
+
+            <!-- Waktu Resep -->
+            <div class="mb-3">
+                <label for="category" class="form-label">Waktu</label>
+                <select class="form-select" id="Waktu" name="Waktu" required>
+                    <option value="15 Menit">15 Menit</option>
+                    <option value="30 Menit">30 Menit</option>
+                    <option value="45 Menit">45 Menit</option>
+                    <option value="1 Jam">1 Jam</option>
+                    <option value="1 Jam 30 Menit">1 Jam 30 Menit</option>
+                    <option value="2 Jam">2 Jam</option>
+                    <option value="2 Jam 30 Menit">2 Jam 30 Menit</option>
+                    <option value="+3 Jam">+3 Jam</option>
+                </select>
+            </div>
+
+            <!-- Bahan Bahan -->
+            <div class="mb-3">
+                <label for="ingredients" class="form-label">Bahan-bahan</label>
+                <textarea class="form-control form-control-lg" id="ingredients" name="Bahan" rows="4" required placeholder="Masukkan Bahan-bahan"></textarea>
+            </div>
+
+            <!-- Langkah Memasak -->
+            <div class="mb-3">
+                <label for="steps" class="form-label">Langkah Memasak</label>
+                <textarea class="form-control form-control-lg" id="steps" name="Langkah" rows="6" required placeholder="Masukkan Langkah Memasak"></textarea>
+            </div>
+
+            <!-- Foto Resep -->
+            <div class="mb-3">
+                <label for="image" class="form-label">Unggah Gambar Resep</label>
+                <input class="form-control form-control-lg" type="file" id="image" name="Gambar_Resep" required>
+            </div>
+
+            <button type="submit" id="btn-submit" class="btn btn-submit w-100 button-unggah">Unggah Resep</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <%- include('./layouts/footer') %>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

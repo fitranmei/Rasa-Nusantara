@@ -1,0 +1,21 @@
+<ul class="grid resep-list">
+    <% resep.forEach(function(resep) { %>
+    <li class="g-col-5 resep-item">
+        <a href="/resep/<%- resep.ID_Resep %>">
+            <img src="/images/resep/<%= resep.Gambar_Resep %>" alt="<%= resep.Nama_Resep  %>" class="resep-image">
+        </a>
+            
+        <div class="resep-detail">
+            <a class="resep-button" href="/kategori/<%= resep.Kategori %>"><%= resep.Kategori %></a>
+            <a class="resep-button" href="/waktu/<%= resep.Waktu %>"><span><i class="bi bi-clock"></i>  <%= resep.Waktu %></span></a>
+        </div>
+
+        <a href="/resep/<%- resep.ID_Resep %>">
+            <h2 class="resep-detail-text"><%= resep.Nama_Resep %></h2>
+        </a>
+    </li>
+    <% }); %> 
+    <% if (resep.length == 0) { %>
+        <p class="empty-text">Belum ada resep</p>
+    <% } %>
+</ul>

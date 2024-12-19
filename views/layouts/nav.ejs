@@ -1,0 +1,43 @@
+<header>
+    <a href="/" class="logo"><img src="/images/logo/logorn.png" alt="Rasa Nusantara"></a>
+
+    <ul class="navbar">
+        <li><a href="/resep">Resep</a></li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Kategori
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/kategori/Sarapan">Sarapan</a></li>
+                <li><a class="dropdown-item" href="/kategori/Makan Siang">Makan Siang</a></li>
+                <li><a class="dropdown-item" href="/kategori/Makan Malam">Makan Malam</a></li>
+                <li><a class="dropdown-item" href="/kategori/Resep Ayam">Resep Ayam</a></li>
+                <li><a class="dropdown-item" href="/kategori/Resep Daging">Resep Daging</a></li>
+                <li><a class="dropdown-item" href="/kategori/Resep Seafood">Resep Seafood</a></li>
+                <li><a class="dropdown-item" href="/kategori/Resep Sayuran">Resep Sayuran</a></li>
+                <li><a class="dropdown-item" href="/kategori/Dessert">Dessert</a></li>
+            </ul>
+        </li>
+        <li><a href="/resep/unggah">Unggah Resep</a></li>
+    </ul>
+
+    <form action="/resep/searchResep" method="post" class="searchbar" novalidate>
+        <input type="text" name="search" placeholder="Temukan Resep" aria-label="search">
+        <button type="submit"> Cari </button>
+    </form>
+
+    <div class="profile" tabindex="0">
+        <% if (recentUser) { %>
+            <div class="profile-header">
+                <img src="/images/user/<%= recentUser.Gambar_User %>" alt="<%= recentUser.name %>">
+                <span><%= recentUser.name %></span>
+            </div>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/profile/<%= recentUser.name %>">Profile</a></li>
+                <li><a class="dropdown-item" href="/auth/logout">Logout</a></li>
+            </ul>
+        <% } else { %>
+            <a href="/login"><span>Login</span></a>
+        <% } %>
+    </div>
+</header>

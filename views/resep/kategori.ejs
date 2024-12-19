@@ -1,0 +1,10 @@
+<ul class="kategori-list">
+    <% kategori.forEach(function(item) { %>
+    <li class="kategori-item" href="">
+        <a href="/kategori/<%= item.Kategori %>">
+            <img src="/images/kategori/<%= item.Gambar_Kategori %>" alt="<%= item.Kategori %>" class="category-image">
+            <span class="category-name"><%= item.Kategori %></span>
+        </a>
+    </li>
+    <% }); %>
+</ul>

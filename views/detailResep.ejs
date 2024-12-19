@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= resep.Nama_Resep %></title>
+    <link rel="stylesheet" href="/css/detailresep.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+</head>
+<body>
+    <!-- Navbar -->
+    <%- include('./layouts/nav') %>
+
+    <!-- Konten Resep -->
+    <section class="konten-resep">
+        <div class="detail-resep-1">
+            <!-- Kolom untuk Gambar -->
+            <img src="/images/resep/<%= resep.Gambar_Resep %>" alt="<%= resep.Nama_Resep %>" class="img-fluid rounded">
+            
+            <!-- Kolom untuk Judul -->
+            <div class="text-resep">
+                <div class="text-resep-judul">
+                    <h1><%= resep.Nama_Resep %></h1>
+                    <p><%= resep.Deskripsi %></p>
+                </div>
+                
+                <div class="text-resep-deskripsi">
+                    <div class="deskripsi-kategori-waktu">
+                        <div class="resep-detail">
+                            <a class="resep-button" href="/kategori/<%= resep.Kategori %>"><%= resep.Kategori %></a>
+                            <a class="resep-button" href="/waktu/<%= resep.Waktu %>"><span><i class="bi bi-clock"></i>  <%= resep.Waktu %></span></a>
+                        </div>
+                    </div>
+
+                    <div class="deskripsi-published">
+                        <p class="published-resep">Published by: <a href="/profile/<%= userResep.name %>"><%= userResep.name %></a></p>
+
+                        <% if (recentUser && recentUser.ID_User == resep.ID_User) { %>
+                            <div class="btn-user">
+                                <input type="hidden" name="oldGambarResep" value="<%= resep.Gambar_Resep %>">
+                                <a href="/resep/<%= resep.ID_Resep %>/edit" class="btn btn-edit">Edit Resep</a>
+                                <a href="/resep/delete-resep/<%= resep.ID_Resep %>" class="btn btn-delete">Delete Resep</a>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kolom untuk Teks -->
+        <div class="detail-resep-2">
+            <div class="col bahanlangkah">
+                <h3>Bahan-bahan:</h3>
+                <ul>
+                    <% if (bahanList && bahanList.length > 0) { %>
+                        <% bahanList.forEach((bahan) => { %>
+                            <li><%= bahan %></li>
+                        <% }); %>
+                    <% } else { %>
+                        <p>Tidak ada bahan-bahan yang tersedia.</p>
+                    <% } %>
+                </ul>
+            </div>
+
+            <div class="col-7 bahanlangkah">
+                <h3>Cara Memasak:</h3>
+                <ol>
+                    <% if (langkahList && langkahList.length > 0) { %>
+                        <% langkahList.forEach((langkah) => { %>
+                            <li><%= langkah %></li>
+                        <% }); %>
+                    <% } else { %>
+                        <p>Tidak ada langkah-langkah yang tersedia.</p>
+                    <% } %>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <%- include('./layouts/footer') %>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>
